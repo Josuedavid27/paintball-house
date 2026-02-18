@@ -1,74 +1,653 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Paintball House</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Paintball House Barranquilla – La experiencia de paintball más épica del Caribe. Reserva tu batalla hoy."/>
+  <title>Paintball House Barranquilla | Combat Zone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 
-<!-- HERO -->
-<section class="hero">
-  <video autoplay muted loop playsinline>
-    <source src="assets/video/hero.mp4" type="video/mp4">
-  </video>
+  <!-- ══════════════════════════════════
+       CURSOR PERSONALIZADO
+  ══════════════════════════════════ -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
-  <div class="overlay">
-    <h1>Paintball House</h1>
-    <p>Adrenalina, estrategia y diversión real</p>
-    <a href="#reservas" class="btn">Reservar ahora</a>
+  <!-- ══════════════════════════════════
+       LOADER DE PANTALLA
+  ══════════════════════════════════ -->
+  <div class="loader" id="loader">
+    <div class="loader-inner">
+      <div class="loader-logo">
+        <span class="loader-ph">PAINTBALL</span>
+        <span class="loader-house">HOUSE</span>
+      </div>
+      <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
+      <div class="loader-status" id="loaderStatus">INICIANDO SISTEMA...</div>
+    </div>
   </div>
-</section>
 
-<!-- EXPERIENCIA -->
-<section class="experiencia">
-  <h2>Vive la experiencia</h2>
-  <p>Partidas reales de paintball para grupos, cumpleaños y eventos especiales.</p>
-</section>
+  <!-- ══════════════════════════════════
+       CANVAS DE PARTÍCULAS
+  ══════════════════════════════════ -->
+  <canvas id="particleCanvas"></canvas>
 
-<!-- GALERIA -->
-<section class="galeria">
-  <h2>Galería</h2>
-  <div class="galeria-grid">
-    <img src="assets/img/foto1.jpg">
-    <img src="assets/img/foto2.jpg">
-    <img src="assets/img/foto3.jpg">
+  <!-- ══════════════════════════════════
+       NAVEGACIÓN
+  ══════════════════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#inicio" class="nav-logo" aria-label="Paintball House Barranquilla">
+        <span class="logo-bracket">[</span>
+        <span class="logo-ph">PH</span>
+        <span class="logo-bracket">]</span>
+        <span class="logo-text">PAINTBALL<em>HOUSE</em></span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#nosotros" class="nav-link"><span class="nav-num">01.</span>Nosotros</a></li>
+        <li><a href="#servicios" class="nav-link"><span class="nav-num">02.</span>Servicios</a></li>
+        <li><a href="#precios" class="nav-link"><span class="nav-num">03.</span>Precios</a></li>
+        <li><a href="#galeria" class="nav-link"><span class="nav-num">04.</span>Galería</a></li>
+        <li><a href="#equipo" class="nav-link"><span class="nav-num">05.</span>Equipo</a></li>
+        <li><a href="#contacto" class="nav-link nav-cta">
+          <span class="cta-icon">⚡</span> RESERVAR
+        </a></li>
+      </ul>
+
+      <button class="hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════
+       HERO
+  ══════════════════════════════════ -->
+  <section id="inicio" class="hero">
+    <div class="hero-bg-fx">
+      <div class="hex-grid"></div>
+      <div class="scanline"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge glitch-subtle" data-text="// BARRANQUILLA, COLOMBIA — EST. 2016">
+        // BARRANQUILLA, COLOMBIA — EST. 2016
+      </div>
+
+      <h1 class="hero-title">
+        <span class="ht-line ht-white" data-reveal="COMBAT">COMBAT</span>
+        <span class="ht-line ht-cyan glitch" data-text="ZONE" id="glitchText">ZONE</span>
+        <span class="ht-line ht-outline">PAINTBALL</span>
+      </h1>
+
+      <div class="hero-tagline">
+        <span class="mono-text" id="typingText"></span>
+        <span class="cursor-blink">|</span>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#contacto" class="btn-primary">
+          <span class="btn-fx"></span>
+          <span class="btn-text">INICIAR MISIÓN</span>
+          <span class="btn-arrow">→</span>
+        </a>
+        <a href="#servicios" class="btn-ghost">
+          VER SERVICIOS <span class="btn-dot"></span>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-val" data-count="500">0</div>
+          <div class="stat-plus">+</div>
+          <div class="stat-lbl">Guerreros<br>al mes</div>
+        </div>
+        <div class="stat-sep">|</div>
+        <div class="stat-item">
+          <div class="stat-val" data-count="5">0</div>
+          <div class="stat-lbl">Campos<br>únicos</div>
+        </div>
+        <div class="stat-sep">|</div>
+        <div class="stat-item">
+          <div class="stat-val" data-count="8">0</div>
+          <div class="stat-plus">+</div>
+          <div class="stat-lbl">Años de<br>experiencia</div>
+        </div>
+        <div class="stat-sep">|</div>
+        <div class="stat-item">
+          <div class="stat-val">4.9</div>
+          <div class="stat-star">★</div>
+          <div class="stat-lbl">Rating<br>Google</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
+    </div>
+
+    <!-- Paintball splatters decorativos -->
+    <div class="splat splat-1"></div>
+    <div class="splat splat-2"></div>
+    <div class="splat splat-3"></div>
+    <div class="splat splat-4"></div>
+    <div class="splat splat-5"></div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       SOBRE NOSOTROS
+  ══════════════════════════════════ -->
+  <section id="nosotros" class="section about-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text reveal-left">
+          <div class="section-eyebrow">// 01. QUIÉNES SOMOS</div>
+          <div class="section-divider"></div>
+          <h2 class="section-title">La arena de <span class="text-cyan">batalla</span> más<br>legendaria del Caribe</h2>
+          <p class="section-body">Somos <strong>Paintball House Barranquilla</strong>, el destino #1 para los amantes de la adrenalina y el deporte de combate. Con más de 8 años dominando la industria, ofrecemos experiencias únicas para grupos, empresas, celebraciones y guerreros que buscan la emoción del campo de batalla.</p>
+          <p class="section-body">Equipos de última generación, instructores certificados y escenarios diseñados para que cada partida sea una historia que contar.</p>
+          <div class="about-badges">
+            <div class="badge">🛡️ Seguridad certificada</div>
+            <div class="badge">🔧 Equipo premium</div>
+            <div class="badge">🏆 8 años de experiencia</div>
+          </div>
+          <a href="#contacto" class="btn-primary">
+            <span class="btn-fx"></span>
+            <span class="btn-text">ÚNETE A LA BATALLA</span>
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+
+        <div class="about-visual reveal-right">
+          <div class="about-card-stack">
+            <div class="acard acard-main">
+              <div class="acard-corner tl"></div>
+              <div class="acard-corner tr"></div>
+              <div class="acard-corner bl"></div>
+              <div class="acard-corner br"></div>
+              <div class="acard-icon">🎯</div>
+              <p class="acard-quote">"No solo juegas paintball.<br><strong>Vives la batalla.</strong>"</p>
+              <div class="acard-line"></div>
+              <div class="acard-meta">
+                <span>PAINTBALL HOUSE BAQ</span>
+                <span>EST. 2016</span>
+              </div>
+            </div>
+            <div class="acard-mini acard-mini-1">
+              <div class="mini-num" data-count="500">0</div><span>+</span>
+              <div class="mini-lbl">guerreros/mes</div>
+            </div>
+            <div class="acard-mini acard-mini-2">
+              <div class="mini-num">4.9</div><span>★</span>
+              <div class="mini-lbl">calificación</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       SERVICIOS
+  ══════════════════════════════════ -->
+  <section id="servicios" class="section services-section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <div class="section-eyebrow">// 02. LO QUE HACEMOS</div>
+        <div class="section-divider"></div>
+        <h2 class="section-title">Elige tu <span class="text-cyan">modo</span> de combate</h2>
+        <p class="section-subtitle">Desde sesiones básicas hasta experiencias VIP nocturnas. Tenemos la misión perfecta para ti.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card reveal-up" style="--delay:0.1s">
+          <div class="sc-number">01</div>
+          <div class="sc-icon">🎯</div>
+          <h3 class="sc-title">SESIÓN ESTÁNDAR</h3>
+          <p class="sc-desc">Vive la emoción con equipo completo, campos variados y diversión garantizada para grupos de todos los tamaños.</p>
+          <div class="sc-tags"><span>1+ hora</span><span>Grupal</span></div>
+          <div class="sc-line"></div>
+          <a href="#contacto" class="sc-link">Reservar <span>→</span></a>
+        </div>
+
+        <div class="service-card reveal-up" style="--delay:0.2s">
+          <div class="sc-number">02</div>
+          <div class="sc-icon">🏢</div>
+          <h3 class="sc-title">EVENTOS CORPORATIVOS</h3>
+          <p class="sc-desc">Team building que realmente funciona. Comunicación, liderazgo y trabajo en equipo a través de la batalla táctica.</p>
+          <div class="sc-tags"><span>10-100 personas</span><span>Empresa</span></div>
+          <div class="sc-line"></div>
+          <a href="#contacto" class="sc-link">Reservar <span>→</span></a>
+        </div>
+
+        <div class="service-card reveal-up" style="--delay:0.3s">
+          <div class="sc-number">03</div>
+          <div class="sc-icon">🎂</div>
+          <h3 class="sc-title">FIESTAS & CELEBRACIONES</h3>
+          <p class="sc-desc">Cumpleaños, despedidas de soltero y cualquier celebración especial. Paquetes personalizados con decoración incluida.</p>
+          <div class="sc-tags"><span>Personalizable</span><span>Premium</span></div>
+          <div class="sc-line"></div>
+          <a href="#contacto" class="sc-link">Reservar <span>→</span></a>
+        </div>
+
+        <div class="service-card reveal-up" style="--delay:0.15s">
+          <div class="sc-number">04</div>
+          <div class="sc-icon">🏆</div>
+          <h3 class="sc-title">TORNEOS & LIGAS</h3>
+          <p class="sc-desc">¿Eres un guerrero de élite? Únete a nuestros torneos mensuales y ligas competitivas con premios reales.</p>
+          <div class="sc-tags"><span>Competitivo</span><span>Mensual</span></div>
+          <div class="sc-line"></div>
+          <a href="#contacto" class="sc-link">Reservar <span>→</span></a>
+        </div>
+
+        <div class="service-card reveal-up" style="--delay:0.25s">
+          <div class="sc-number">05</div>
+          <div class="sc-icon">🎒</div>
+          <h3 class="sc-title">ENTRENAMIENTO TÁCTICO</h3>
+          <p class="sc-desc">Cursos de táctica y estrategia con instructores expertos certificados. Lleva tu juego al siguiente nivel.</p>
+          <div class="sc-tags"><span>Élite</span><span>Certificado</span></div>
+          <div class="sc-line"></div>
+          <a href="#contacto" class="sc-link">Reservar <span>→</span></a>
+        </div>
+
+        <div class="service-card service-card-featured reveal-up" style="--delay:0.35s">
+          <div class="sc-number">06</div>
+          <div class="sc-icon">🌙</div>
+          <h3 class="sc-title">BATALLA NOCTURNA</h3>
+          <p class="sc-desc">La experiencia definitiva. Paintball con iluminación neón y un ambiente que solo los más valientes se atreven a vivir.</p>
+          <div class="sc-tags"><span>VIP</span><span>Nocturno</span></div>
+          <div class="sc-line"></div>
+          <a href="#contacto" class="sc-link">Reservar <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       PRECIOS
+  ══════════════════════════════════ -->
+  <section id="precios" class="section pricing-section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <div class="section-eyebrow">// 03. INVERSIÓN</div>
+        <div class="section-divider"></div>
+        <h2 class="section-title">Elige tu <span class="text-cyan">misión</span></h2>
+        <p class="section-subtitle">Todos los paquetes incluyen equipo completo, seguro y apoyo de instructores.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="price-card reveal-up" style="--delay:0.1s">
+          <div class="pc-header">
+            <div class="pc-plan">SOLDADO</div>
+            <div class="pc-badge-level">NIVEL 1</div>
+          </div>
+          <div class="pc-price">
+            <sup>$</sup><span class="pc-amount">35.000</span>
+            <div class="pc-period">COP / persona</div>
+          </div>
+          <ul class="pc-features">
+            <li><span class="feat-check">✓</span> 1 hora de combate</li>
+            <li><span class="feat-check">✓</span> 100 bolas de paintball</li>
+            <li><span class="feat-check">✓</span> Equipo protector completo</li>
+            <li><span class="feat-check">✓</span> Marcadora estándar</li>
+            <li><span class="feat-check">✓</span> Acceso a 1 campo</li>
+            <li class="feat-disabled"><span class="feat-x">✗</span> Fotos del evento</li>
+            <li class="feat-disabled"><span class="feat-x">✗</span> Refrigerio</li>
+          </ul>
+          <a href="#contacto" class="btn-ghost pc-btn">SELECCIONAR</a>
+        </div>
+
+        <div class="price-card price-featured reveal-up" style="--delay:0.2s">
+          <div class="pc-popular">⚡ MÁS POPULAR</div>
+          <div class="pc-header">
+            <div class="pc-plan">ÉLITE</div>
+            <div class="pc-badge-level">NIVEL 2</div>
+          </div>
+          <div class="pc-price">
+            <sup>$</sup><span class="pc-amount">65.000</span>
+            <div class="pc-period">COP / persona</div>
+          </div>
+          <ul class="pc-features">
+            <li><span class="feat-check">✓</span> 2 horas de combate</li>
+            <li><span class="feat-check">✓</span> 250 bolas de paintball</li>
+            <li><span class="feat-check">✓</span> Equipo premium</li>
+            <li><span class="feat-check">✓</span> Marcadora profesional</li>
+            <li><span class="feat-check">✓</span> Todos los campos</li>
+            <li><span class="feat-check">✓</span> Fotos del evento</li>
+            <li><span class="feat-check">✓</span> Refrigerio incluido</li>
+          </ul>
+          <a href="#contacto" class="btn-primary pc-btn">
+            <span class="btn-fx"></span>
+            <span class="btn-text">SELECCIONAR</span>
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+
+        <div class="price-card reveal-up" style="--delay:0.3s">
+          <div class="pc-header">
+            <div class="pc-plan">COMANDO</div>
+            <div class="pc-badge-level">NIVEL 3</div>
+          </div>
+          <div class="pc-price">
+            <sup>$</sup><span class="pc-amount">95.000</span>
+            <div class="pc-period">COP / persona</div>
+          </div>
+          <ul class="pc-features">
+            <li><span class="feat-check">✓</span> 3 horas de combate</li>
+            <li><span class="feat-check">✓</span> 500 bolas de paintball</li>
+            <li><span class="feat-check">✓</span> Equipo VIP premium</li>
+            <li><span class="feat-check">✓</span> Marcadora sniper</li>
+            <li><span class="feat-check">✓</span> Campos exclusivos</li>
+            <li><span class="feat-check">✓</span> Video + fotos</li>
+            <li><span class="feat-check">✓</span> Sesión nocturna + instructores privados</li>
+          </ul>
+          <a href="#contacto" class="btn-ghost pc-btn">SELECCIONAR</a>
+        </div>
+      </div>
+
+      <div class="pricing-note reveal-up">
+        <span class="mono-text">// ¿Grupo grande? Contáctanos para paquetes corporativos personalizados.</span>
+        <a href="#contacto">Hablar con nosotros →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       GALERÍA
+  ══════════════════════════════════ -->
+  <section id="galeria" class="section gallery-section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <div class="section-eyebrow">// 04. CAMPO DE BATALLA</div>
+        <div class="section-divider"></div>
+        <h2 class="section-title">Momentos <span class="text-cyan">épicos</span></h2>
+        <p class="section-subtitle">Cada batalla es única. Estos son algunos de los momentos más memorables.</p>
+      </div>
+
+      <div class="gallery-grid reveal-up">
+        <div class="gallery-item gi-large" data-label="Campo Principal">
+          <div class="gi-inner">
+            <div class="gi-placeholder">
+              <div class="gi-icon">🎯</div>
+              <div class="gi-name">Campo Principal</div>
+            </div>
+            <div class="gi-overlay">
+              <div class="gi-overlay-content">
+                <div class="gi-overlay-title">Campo Principal</div>
+                <div class="gi-overlay-sub">Arena de batalla épica</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item" data-label="Acción">
+          <div class="gi-inner">
+            <div class="gi-placeholder"><div class="gi-icon">💥</div><div class="gi-name">Batalla en Acción</div></div>
+            <div class="gi-overlay"><div class="gi-overlay-content"><div class="gi-overlay-title">Batalla en Acción</div><div class="gi-overlay-sub">Adrenalina pura</div></div></div>
+          </div>
+        </div>
+        <div class="gallery-item" data-label="Torneo">
+          <div class="gi-inner">
+            <div class="gi-placeholder"><div class="gi-icon">🏆</div><div class="gi-name">Torneo 2024</div></div>
+            <div class="gi-overlay"><div class="gi-overlay-content"><div class="gi-overlay-title">Torneo 2024</div><div class="gi-overlay-sub">Competencia élite</div></div></div>
+          </div>
+        </div>
+        <div class="gallery-item" data-label="Noche">
+          <div class="gi-inner">
+            <div class="gi-placeholder"><div class="gi-icon">🌙</div><div class="gi-name">Batalla Nocturna</div></div>
+            <div class="gi-overlay"><div class="gi-overlay-content"><div class="gi-overlay-title">Batalla Nocturna</div><div class="gi-overlay-sub">Experiencia VIP</div></div></div>
+          </div>
+        </div>
+        <div class="gallery-item gi-large" data-label="Corporativo">
+          <div class="gi-inner">
+            <div class="gi-placeholder"><div class="gi-icon">🎉</div><div class="gi-name">Evento Corporativo</div></div>
+            <div class="gi-overlay"><div class="gi-overlay-content"><div class="gi-overlay-title">Evento Corporativo</div><div class="gi-overlay-sub">Team building épico</div></div></div>
+          </div>
+        </div>
+        <div class="gallery-item" data-label="Campo Fuego">
+          <div class="gi-inner">
+            <div class="gi-placeholder"><div class="gi-icon">🔥</div><div class="gi-name">Campo de Fuego</div></div>
+            <div class="gi-overlay"><div class="gi-overlay-content"><div class="gi-overlay-title">Campo de Fuego</div><div class="gi-overlay-sub">Zona extrema</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       EQUIPO
+  ══════════════════════════════════ -->
+  <section id="equipo" class="section team-section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <div class="section-eyebrow">// 05. ESCUADRÓN</div>
+        <div class="section-divider"></div>
+        <h2 class="section-title">Los <span class="text-cyan">guerreros</span> del staff</h2>
+        <p class="section-subtitle">Un equipo apasionado, certificado y obsesionado con darte la mejor experiencia.</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card reveal-up" style="--delay:0.1s">
+          <div class="tc-avatar">
+            <div class="tc-avatar-inner">👨‍💼</div>
+            <div class="tc-avatar-ring"></div>
+          </div>
+          <div class="tc-info">
+            <div class="tc-name">CARLOS TORRES</div>
+            <div class="tc-role">Director General</div>
+            <p class="tc-bio">Fundador y visionario. 8 años liderando la mejor experiencia de paintball en el Caribe colombiano.</p>
+            <div class="tc-stats"><span>🎯 8 años</span><span>👥 500+ clientes</span></div>
+          </div>
+        </div>
+
+        <div class="team-card reveal-up" style="--delay:0.2s">
+          <div class="tc-avatar">
+            <div class="tc-avatar-inner">👩‍🎯</div>
+            <div class="tc-avatar-ring"></div>
+          </div>
+          <div class="tc-info">
+            <div class="tc-name">ANDREA GÓMEZ</div>
+            <div class="tc-role">Instructora Jefe</div>
+            <p class="tc-bio">Especialista en tácticas de combate y seguridad. Certificada internacionalmente con 5 años de campo.</p>
+            <div class="tc-stats"><span>🛡️ Certificada</span><span>⚡ 5 años</span></div>
+          </div>
+        </div>
+
+        <div class="team-card reveal-up" style="--delay:0.3s">
+          <div class="tc-avatar">
+            <div class="tc-avatar-inner">👨‍🔧</div>
+            <div class="tc-avatar-ring"></div>
+          </div>
+          <div class="tc-info">
+            <div class="tc-name">MIGUEL REYES</div>
+            <div class="tc-role">Técnico de Equipo</div>
+            <p class="tc-bio">Experto en mantenimiento y calibración de marcadoras. Garantiza que cada equipo funcione perfectamente.</p>
+            <div class="tc-stats"><span>🔧 Técnico</span><span>🔫 Experto</span></div>
+          </div>
+        </div>
+
+        <div class="team-card reveal-up" style="--delay:0.4s">
+          <div class="tc-avatar">
+            <div class="tc-avatar-inner">👩‍💻</div>
+            <div class="tc-avatar-ring"></div>
+          </div>
+          <div class="tc-info">
+            <div class="tc-name">VALENTINA ROA</div>
+            <div class="tc-role">Eventos & Marketing</div>
+            <p class="tc-bio">La mente creativa detrás de cada evento único. Coordina corporativos, fiestas y experiencias especiales.</p>
+            <div class="tc-stats"><span>🎉 Eventos</span><span>✨ Creativa</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       CONTACTO
+  ══════════════════════════════════ -->
+  <section id="contacto" class="section contact-section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <div class="section-eyebrow">// 06. INICIA TU MISIÓN</div>
+        <div class="section-divider"></div>
+        <h2 class="section-title">Haz tu <span class="text-cyan">reserva</span></h2>
+        <p class="section-subtitle">Respondemos en menos de 24 horas. ¡La batalla te espera!</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info reveal-left">
+          <div class="ci-item">
+            <div class="ci-icon">📍</div>
+            <div class="ci-detail">
+              <div class="ci-label">UBICACIÓN</div>
+              <div class="ci-value">Barranquilla, Atlántico<br>Colombia</div>
+            </div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">📞</div>
+            <div class="ci-detail">
+              <div class="ci-label">TELÉFONO / WHATSAPP</div>
+              <div class="ci-value">+57 300 000 0000</div>
+            </div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">✉️</div>
+            <div class="ci-detail">
+              <div class="ci-label">EMAIL</div>
+              <div class="ci-value">info@paintballhousebaq.com</div>
+            </div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">🕐</div>
+            <div class="ci-detail">
+              <div class="ci-label">HORARIO</div>
+              <div class="ci-value">Lun – Vie: 8:00am – 8:00pm<br>Sáb – Dom: 7:00am – 10:00pm</div>
+            </div>
+          </div>
+
+          <div class="social-links">
+            <a href="#" class="social-btn">
+              <span>📸</span> Instagram
+            </a>
+            <a href="#" class="social-btn">
+              <span>👥</span> Facebook
+            </a>
+            <a href="#" class="social-btn social-wa">
+              <span>💬</span> WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap reveal-right">
+          <form class="contact-form" id="contactForm">
+            <div class="cf-row">
+              <div class="cf-group">
+                <label class="cf-label">NOMBRE</label>
+                <input class="cf-input" type="text" placeholder="Tu nombre completo" required/>
+              </div>
+              <div class="cf-group">
+                <label class="cf-label">TELÉFONO</label>
+                <input class="cf-input" type="tel" placeholder="+57 300 000 0000" required/>
+              </div>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label">EMAIL</label>
+              <input class="cf-input" type="email" placeholder="tu@correo.com" required/>
+            </div>
+            <div class="cf-row">
+              <div class="cf-group">
+                <label class="cf-label">SERVICIO</label>
+                <select class="cf-input cf-select" required>
+                  <option value="">Selecciona...</option>
+                  <option>Sesión Estándar</option>
+                  <option>Evento Corporativo</option>
+                  <option>Fiesta & Celebración</option>
+                  <option>Torneo & Liga</option>
+                  <option>Entrenamiento Táctico</option>
+                  <option>Batalla Nocturna</option>
+                </select>
+              </div>
+              <div class="cf-group">
+                <label class="cf-label">N° DE PERSONAS</label>
+                <input class="cf-input" type="number" placeholder="¿Cuántos guerreros?" min="1"/>
+              </div>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label">MENSAJE</label>
+              <textarea class="cf-input cf-textarea" placeholder="Cuéntanos sobre tu evento, fecha ideal, alguna necesidad especial..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary cf-submit">
+              <span class="btn-fx"></span>
+              <span class="btn-text">ENVIAR MISIÓN</span>
+              <span class="btn-arrow">🚀</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       FOOTER
+  ══════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-glow"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <div class="footer-logo">
+            <span class="logo-bracket">[</span>
+            <span class="logo-ph">PH</span>
+            <span class="logo-bracket">]</span>
+            <span class="logo-text">PAINTBALL<em>HOUSE</em></span>
+          </div>
+          <p class="footer-desc">La experiencia de paintball más épica de Barranquilla. Donde los guerreros nacen y las leyendas se crean.</p>
+          <div class="footer-tagline">
+            <span class="mono-text">// EST. 2016 — BARRANQUILLA, COL.</span>
+          </div>
+        </div>
+
+        <div class="footer-nav-col">
+          <div class="footer-col-title">NAVEGACIÓN</div>
+          <ul class="footer-links">
+            <li><a href="#nosotros">→ Sobre Nosotros</a></li>
+            <li><a href="#servicios">→ Servicios</a></li>
+            <li><a href="#precios">→ Precios</a></li>
+            <li><a href="#galeria">→ Galería</a></li>
+            <li><a href="#equipo">→ Equipo</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-contact-col">
+          <div class="footer-col-title">CONTACTO</div>
+          <ul class="footer-links">
+            <li><a href="#">→ WhatsApp</a></li>
+            <li><a href="#">→ Instagram</a></li>
+            <li><a href="#">→ Facebook</a></li>
+            <li><a href="#contacto">→ Hacer Reserva</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="fb-copy">© 2025 Paintball House Barranquilla. Todos los derechos reservados.</div>
+        <div class="fb-made">Hecho con 🎯 en Barranquilla, Colombia</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast de notificación -->
+  <div class="toast" id="toast">
+    <span class="toast-icon">🎯</span>
+    <span class="toast-msg">¡Misión enviada! Te contactamos pronto.</span>
   </div>
-</section>
 
-<!-- HORARIOS -->
-<section class="horarios">
-  <h2>Horarios</h2>
-  <div class="cards">
-    <div class="card">🕘 Mañana<br>9:00 - 12:00</div>
-    <div class="card">🕑 Tarde<br>2:00 - 5:00</div>
-    <div class="card">🕕 Noche<br>6:00 - 9:00</div>
-  </div>
-</section>
-
-<!-- RESERVAS -->
-<section id="reservas" class="reservas">
-  <h2>Reservas</h2>
-  <p>Reserva tu partida fácilmente por WhatsApp</p>
-  <a class="btn whatsapp" 
-     href="https://wa.me/573000000000?text=Hola%20quiero%20reservar%20una%20partida%20de%20paintball"
-     target="_blank">
-     Reservar por WhatsApp
-  </a>
-</section>
-
-<!-- UBICACION -->
-<section class="ubicacion">
-  <h2>Cómo llegar</h2>
-  <iframe src="https://www.google.com/maps/embed?..."
-          loading="lazy"></iframe>
-</section>
-
-<footer>
-  <p>© Paintball House</p>
-</footer>
-
-<script src="js/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
